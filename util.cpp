@@ -14,17 +14,39 @@ std::string convToLower(std::string src)
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
-{
-
-
-
-
-
-
-
-
-
-
+{   
+    set<string> words;
+    string word;
+    stringstream ss(rawWords);
+    while (ss >> word)
+    {
+        word = convToLower(word);
+        word = trim(word);
+        //first, we need to split at punctuation, which will (hopefully) only be , and . and '
+        string filteredWord = "";
+        int punctuationCount = 3;
+        char * punctuation[] = {",", ".", "'"};
+        for(int i = 0; i < punctuationCount; i++) {
+            int punctuationPosition = word.find(punctuation[i]);
+            if(punctuationPosition != string::npos) {
+                string temp = word.substr(0, punctuationPosition);
+                string temp2 = word.substr(punctuationPosition + 1);
+                if(temp.length() >= 2) {
+                    filteredWord = temp;
+                }
+                if(temp2.length() >= 2) {
+                    filteredWord = temp2;
+                }
+            }else {
+                filteredWord = word;
+            
+            }
+        }
+        if(filteredWord.length() >= 2) {
+            words.insert(filteredWord);
+        }
+    }
+    return words;
 }
 
 /**************************************************
