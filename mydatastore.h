@@ -10,6 +10,8 @@ class MyDataStore : public DataStore
 {
 
 public:
+
+    virtual ~MyDataStore();
     /**
      * Adds a product to the data store
      */

@@ -8,6 +8,15 @@
 #include "mydatastore.h"
 using namespace std;
 
+MyDataStore::~MyDataStore() {
+    for(int i = 0; i < products_.size(); i++) {
+        delete products_[i];
+    }
+    for(map<string, User *>::iterator it = users_.begin(); it != users_.end(); ++it) {
+        delete it->second;
+    }
+}
+
 /**
  * Adds a product to the data store
  */
