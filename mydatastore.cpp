@@ -105,18 +105,34 @@ void MyDataStore::addProductToUserCart(std::string username, Product *p) {
 void MyDataStore::viewCart(std::string username){
     vector<Product *> cart = userCart_[username];
     for(int i = 0; i < cart.size(); i++) {
+      cout << "Item " << i + 1 << endl;
         cout << cart[i]->displayString() << endl;
     }
 
 }
 void MyDataStore::buyCart(std::string username){
     vector<Product *> cart = userCart_[username];
+    vector<Product *> resultCart;
     for(int i = 0; i < cart.size(); i++) {
-        if(cart[i]->getQty() > 0) {
+        if(cart[i]->getQty() > 0 && users_[username]->getBalance() >= cart[i]->getPrice()) {
             cart[i]->subtractQty(1);
             users_[username]->deductAmount(cart[i]->getPrice());
+        }else {
+          resultCart.push_back(cart[i]);
         }
     }
     userCart_[username].clear();
+    for(int i = 0; i < resultCart.size(); i++) {
+      userCart_[username].push_back(resultCart[i]);
+    }
 
+}
+
+bool MyDataStore::userExists(string username) {
+  map<string, User *>::iterator it;
+  it = users_.find(username);
+  if(it != users_.end()) {// found
+    return true;
+  }
+  return false;
 }

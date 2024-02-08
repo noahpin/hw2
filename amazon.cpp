@@ -117,42 +117,57 @@ int main(int argc, char *argv[])
                 int hitNo;
                 if (ss >> username >> hitNo)
                 {
-                    if (hitNo > 0 && hitNo <= hits.size())
+                    if (hitNo > 0 && hitNo <= hits.size() && ds.userExists(username))
                     {
                         ds.addProductToUserCart(username, hits[hitNo - 1]);
                     }
                     else
                     {
-                        cout << "Invalid hit number" << endl;
+                        cout << "Invalid request" << endl;
                     }
                 }
                 else
                 {
-                    cout << "Invalid command" << endl;
+                    cout << "Invalid request" << endl;
                 }
             }
             else if (cmd == "VIEWCART")
             {
+                
+              bool userExists = false;
                 string username;
                 if (ss >> username)
                 {
+                  if(ds.userExists(username)) {
+                    userExists = true;
+                  }
+                }
+                if(userExists) {
                     ds.viewCart(username);
+
                 }
                 else
                 {
-                    cout << "Invalid command" << endl;
+                    cout << "Invalid username" << endl;
                 }
             }
             else if (cmd == "BUYCART")
             {
+              bool userExists = false;
                 string username;
                 if (ss >> username)
                 {
+                  if(ds.userExists(username)) {
+                    userExists = true;
+                  }
+                }
+                if(userExists) {
                     ds.buyCart(username);
+
                 }
                 else
                 {
-                    cout << "Invalid command" << endl;
+                    cout << "Invalid username" << endl;
                 }
             }
 

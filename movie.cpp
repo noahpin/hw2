@@ -30,6 +30,6 @@ std::string Movie::displayString() const {
 std::set<std::string> Movie::keywords() const {
     //words from title, author, isbn
     set<string> keywords = parseStringToWords(name_);
-    keywords.insert(genre_);
+    keywords.insert(convToLower(genre_));
     return keywords;
 }

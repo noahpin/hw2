@@ -44,6 +44,8 @@ public:
      */
     virtual void dump(std::ostream &ofile);
 
+    bool userExists(std::string username);
+
 private:
     std::vector<Product *> products_;
     std::map<std::string, User *> users_;
